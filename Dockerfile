@@ -1,8 +1,9 @@
 # Base image
-FROM ubuntu
+FROM kalilinux/kali-linux-docker
 
 # install goodies
 RUN apt-get update && apt-get install -y \
+	aircrack-ng \
 	curl \
 	cowsay \
 	gcc \
@@ -10,6 +11,7 @@ RUN apt-get update && apt-get install -y \
 	make \
 	nmap \
 	netcat \
+	pciutils \
 	pv \
 	tcpdump \
 	youtube-dl \
@@ -23,6 +25,14 @@ WORKDIR /usr/src/hashcat
 RUN git submodule update --init && \
 	make && \
 	make install
+
+# hashcat-utils
+WORKDIR /usr/src
+RUN git clone https://github.com/hashcat/hashcat-utils.git
+WORKDIR /usr/src/hashcat-utils/src
+RUN make
+RUN for binaries in $(ls *.bin); do mv $binaries /usr/local/bin/$(echo "$binaries" | sed 's/\.bin//g'); done
+
 
 # create work dir
 RUN mkdir -p /home/hckr
