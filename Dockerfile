@@ -27,14 +27,15 @@ RUN git submodule update --init && \
 	make install
 
 # hashcat-utils
-WORKDIR /usr/src
+WORKDIR /tmp
 RUN git clone https://github.com/hashcat/hashcat-utils.git
-WORKDIR /usr/src/hashcat-utils/src
+WORKDIR /tmp/hashcat-utils/src
 RUN make
 RUN for binaries in $(ls *.bin); do mv $binaries /usr/local/bin/$(echo "$binaries" | sed 's/\.bin//g'); done
-
 
 # create work dir
 RUN mkdir -p /home/hckr
 WORKDIR /home/hckr
-		
+
+## now clean up
+RUN rm -rf /tmp/*
