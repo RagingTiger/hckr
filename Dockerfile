@@ -3,13 +3,17 @@ FROM ubuntu
 
 # install goodies
 RUN apt-get update && apt-get install -y \
+	curl \
 	cowsay \
 	gcc \
 	git \
 	make \
 	nmap \
 	netcat \
-	tcpdump
+	pv \
+	tcpdump \
+	youtube-dl \
+	wget
 
 ## get github repos and build
 # hashcat
@@ -22,7 +26,5 @@ RUN git submodule update --init && \
 
 # create work dir
 RUN mkdir -p /home/hckr
-
-# set work dir
 WORKDIR /home/hckr
 		
