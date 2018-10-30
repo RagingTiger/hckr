@@ -33,6 +33,9 @@ WORKDIR /tmp/hashcat-utils/src
 RUN make
 RUN for binaries in $(ls *.bin); do mv $binaries /usr/local/bin/$(echo "$binaries" | sed 's/\.bin//g'); done
 
+# setup rc file
+COPY .bashrc /root/
+
 # create work dir
 RUN mkdir -p /home/hckr
 WORKDIR /home/hckr
