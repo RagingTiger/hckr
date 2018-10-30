@@ -24,5 +24,5 @@ webscrape () {
 }
 
 get_youtube_audio(){
-  youtube-dl -x --audio-format mp3
+  youtube-dl -x --audio-format mp3 $1
 }
