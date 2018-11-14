@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 	netcat \
 	pciutils \
 	pv \
-        python-pip
+        python-pip \
 	tcpdump \
 	youtube-dl \
 	wget
