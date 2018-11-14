@@ -18,6 +18,9 @@ RUN apt-get update && apt-get install -y \
 	youtube-dl \
 	wget
 
+# update all python packages
+RUN pip install -U youtube-dl
+
 ## get github repos and build
 # hashcat
 WORKDIR /usr/src
