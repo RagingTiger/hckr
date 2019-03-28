@@ -21,22 +21,6 @@ RUN apt-get update && apt-get install -y \
 # update all python packages
 RUN pip install -U youtube-dl
 
-## get github repos and build
-# hashcat
-WORKDIR /usr/src
-RUN git clone https://github.com/hashcat/hashcat.git
-WORKDIR /usr/src/hashcat
-RUN git submodule update --init && \
-	make && \
-	make install
-
-# hashcat-utils
-WORKDIR /tmp
-RUN git clone https://github.com/hashcat/hashcat-utils.git
-WORKDIR /tmp/hashcat-utils/src
-RUN make
-RUN for binaries in $(ls *.bin); do mv $binaries /usr/local/bin/$(echo "$binaries" | sed 's/\.bin//g'); done
-
 # setup rc file
 COPY .bashrc /root/
 
