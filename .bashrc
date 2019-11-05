@@ -24,7 +24,7 @@ webscrape () {
 }
 
 get_youtube_video(){
-  youtube-dl --restrict-filename -o '%(title)s.%(ext)s'
+  youtube-dl --restrict-filename -o '%(title)s.%(ext)s' $1
 }
 
 get_youtube_audio(){
