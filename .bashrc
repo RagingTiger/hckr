@@ -23,6 +23,18 @@ webscrape () {
        --page-requisites --span-hosts --no-parent --user-agent=Mozilla $1
 }
 
+get_youtube_video(){
+  youtube-dl --restrict-filename -o '%(title)s.%(ext)s'
+}
+
 get_youtube_audio(){
   youtube-dl -x --audio-format mp3 $1
+}
+
+get_youtube_playlist(){
+  youtube-dl --restrict-filenames -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
+}
+
+get_youtube_channel(){
+  youtube-dl --restrict-filename -o '%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
 }
