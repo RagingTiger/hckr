@@ -17,6 +17,8 @@
 # alias cp='cp -i'
 # alias mv='mv -i'
 
+export PS1='\u@\h:\W \$ '
+
 ## webscraping
 webscrape () {
 	wget --html-extension --progress=bar --random-wait --convert-links \
