@@ -19,7 +19,7 @@
 
 export PS1='\u@\h:\W \$ '
 
-## webscraping
+## convenience functions
 webscrape () {
 	wget --html-extension --progress=bar --random-wait --convert-links \
        --page-requisites --span-hosts --no-parent --user-agent=Mozilla $1
@@ -40,3 +40,6 @@ get_youtube_playlist(){
 get_youtube_channel(){
   youtube-dl --restrict-filename -o '%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
 }
+
+## banner
+cat /root/fsociety.dat

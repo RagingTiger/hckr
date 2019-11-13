@@ -10,7 +10,7 @@ RUN apk add --no-cache bash bash-doc bash-completion python3=3.7.5-r1 && \
     pip3 install --no-cache  --upgrade youtube-dl 
 
 # setup rc file
-COPY .bashrc /root/
+COPY root/ /root/
 
 # create work dir
 WORKDIR /home/hckr
