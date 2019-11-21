@@ -20,11 +20,6 @@
 export PS1='\u@\h:\W \$ '
 
 ## convenience functions
-webscrape () {
-	wget --html-extension --progress=bar --random-wait --convert-links \
-       --page-requisites --span-hosts --no-parent --user-agent=Mozilla $1
-}
-
 get_youtube_video(){
   youtube-dl --restrict-filename -o '%(title)s.%(ext)s' $1
 }
