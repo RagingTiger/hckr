@@ -29,11 +29,11 @@ get_youtube_audio(){
 }
 
 get_youtube_playlist(){
-  youtube-dl --restrict-filenames -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
+  youtube-dl --restrict-filenames -o -ciw '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
 }
 
 get_youtube_channel(){
-  youtube-dl --restrict-filename -o '%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
+  youtube-dl --restrict-filename -o -ciw '%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
 }
 
 ## banner
