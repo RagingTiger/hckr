@@ -20,12 +20,31 @@ FROM alpine:3.10
 COPY --from=builder /go/bin/vegeta /usr/bin/vegeta
 
 # install goodies
-RUN apk add --no-cache bash bash-doc bash-completion ffmpeg python3=3.7.5-r1 && \
+RUN apk add --no-cache \
+        bash \
+        bash-doc \
+        bash-completion \
+        curl \
+        ffmpeg \
+        git \
+        jq \
+        make \
+        python3=3.7.5-r1 \
+        rsync && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
     \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache  --upgrade youtube-dl 
+    pip3 install --no-cache  --upgrade youtube-dl
+
+# install slack
+ARG SLKVERS=0.18.0
+RUN cd /tmp && \
+    curl -fsSL -o slack.tar.gz https://github.com/rockymadden/slack-cli/archive/v${SLKVERS}.tar.gz && \
+    tar -xvzf slack.tar.gz && \
+    cd slack-cli-${SLKVERS} && \
+    make install bindir='/usr/local/bin' etcdir='/usr/etc' && \
+    rm -rf /tmp/*     
 
 # setup rc file
 COPY root/ /root/
