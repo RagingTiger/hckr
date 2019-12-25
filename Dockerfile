@@ -49,6 +49,10 @@ RUN cd /tmp && \
 # setup rc file
 COPY root/ /root/
 
+# link ytb2slk executable
+RUN chmod +x /root/ytb2slk.sh && \
+    ln /root/ytb2slk.sh /usr/bin/ytb2slk
+
 # create work dir
 WORKDIR /home/hckr
 
