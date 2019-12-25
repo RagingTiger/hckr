@@ -36,5 +36,18 @@ get_youtube_channel(){
   youtube-dl --restrict-filename -ciw -o '%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
 }
 
+# download from youtube, upload to slack
+youtube_2_slack(){
+  local payload="ytbdl.$(date +%m%d%y%H%M%S)"
+  local channel=${2:-'#general'}
+  local message=${3:-"New upload from youtube-dl on $(date)"}
+  youtube-dl --restrict-filename -ciw -o "${payload}"'.%(title)s.%(ext)s' $1 && \
+  slack file upload -fl "${payload}".* -chs ${channel}  -cm "${message}"
+}
+
+# alias for youtube_2_slack
+alias ytb2slk='youtube_2_slack'
+
+
 ## banner
 cat /root/fsociety.dat
