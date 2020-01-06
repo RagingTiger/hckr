@@ -29,6 +29,7 @@ RUN apk add --no-cache \
         git \
         jq \
         make \
+        openssh \
         python3=3.7.5-r1 \
         rsync && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
