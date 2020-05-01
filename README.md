@@ -9,7 +9,7 @@
   + **Tools**:
     + [`ffmpeg`](https://www.ffmpeg.org/)
     + [`python3`](https://docs.python.org/3/)
-    + [`vegeta`](https://github.com/tsenart/vegeta)
+    + [`gallery-dl`](https://github.com/mikf/gallery-dl)
     + [`youtube-dl`](https://ytdl-org.github.io/youtube-dl/index.html)
   + **Functions**:
     ```
