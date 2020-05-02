@@ -79,24 +79,23 @@ the `slack-cli access token` to the `/usr/etc` directory (see
 ```
 # ytb to slk pipeline
 ytb2slk() {
-  local message=${2:-"New upload on $(date)"}
-  local channel=${3:-'#general'}
   docker run -d \
-             --rm \
-             --name ytb2slk.$(date  +%m%d%y%H%M%S) \
-             -v ~/.hckr:/usr/etc \
-             tigerj/hckr bash -c "ytb2slk $1 '${channel}' '${message}'"
+              --rm \
+              --name ytb2slk.$(date  +%m%d%y%H%M%S) \
+              -v ~/.hckr:/usr/etc \
+              tigerj/hckr bash -c "ytb2slk $1 $2 $3
 }
 ```
 + **Usage**: `$ ytb2slk https://youtu.be/oHg5SJYRHA0 'Special surprise :)' '#humor'`
-+ **Notes**: The `message` and `channel` arguments are optional, and if left out
-  will use the defaults shown above (yes this is redundant and needs to be
-  fixed hehe).
++ **Notes**: The `/root/ytb2slk.sh` script has defaults for `$2` argument two
+(i.e. the `channel` name) and `$3` argument three (i.e. the `message`) (see
+ [source](https://github.com/RagingTiger/docker-hckr/blob/347c6c2d95b756382916a4b7fc38b3aa6bed0412/root/ytb2slk.sh#L4-L5)
+).
 
 #### youtube-dl to rsync
-Next we have a the `youtube-dl` to `rsync` pipeline. This simply allows you to
+Next we have the `youtube-dl` to `rsync` pipeline. This simply allows you to
 download with `youtube-dl` and then `rsync` the files to a different location or
-host. **Important to notice the `-v ~/.ssh:/root.ssh`** which volume mounts your
+host. **Important to notice the `-v ~/.ssh:/root/.ssh`** which volume mounts your
 ssh keys into the container so that you can connect to your remote host:
 ```
 ytb2rsnc(){
@@ -120,7 +119,7 @@ ytb2rsnc(){
 #### Multiple youtube-dl to rsync
 As the name implies, this `shell function` is for loading up multiple
 `youtube-dl` downloads and using `rsync` to send them to a remote host or
-location. **Important to notice the `-v ~/.ssh:/root.ssh`** which volume mounts
+location. **Important to notice the `-v ~/.ssh:/root/.ssh`** which volume mounts
 your ssh keys into the container so that you can connect to your remote host:
 ```
 batch_ytb2rsnc(){
