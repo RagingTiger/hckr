@@ -35,7 +35,7 @@
       }
     ```
   + **Convenience Scripts**:
-    Located in `root/ytb2slk.sh` is a script to pull down videos with
+    Located in `/root/ytb2slk.sh` is a script to pull down videos with
     `youtube-dl` and push them to `slack`:
     ```
     # download from youtube, upload to slack
@@ -49,7 +49,7 @@
 
     youtube_2_slack $1 $2 $3
     ```
-    Located in `root/insta2slk.sh` is a script to pull images from websites
+    Located in `/root/insta2slk.sh` is a script to pull images from websites
     with `gallery-dl` and push them to `slack`:
     ```
     # download from instagram/twitter, upload to slack
