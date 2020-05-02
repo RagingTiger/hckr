@@ -202,3 +202,33 @@ hckr() {
 }
 ```
 + **Usage**: `$ hckr`
+
+### Remotely Launching Scripts
+In the [Deploying Docker Containers](#deploying-docker-containers) section we
+covered how to write `shell functions` to wrap the configuration and deployment
+of `daemon` docker containers. Here we will shows some examples of how to write
+some `shell functions` to remotely connect with a `docker` host system (i.e. a
+remote server) and launch the deploy scripts (again see
+[Deploying Docker Containers](#deploying-docker-containers)). Clearly you will
+need to fill out your `USER` name and `IP_ADDRESS` for your remote server.
+
+#### Remote Execute ytb2slk
+```
+ytb2slk() {
+    ssh ${USER}@${IP_ADDRESS} "source ~/.profile && ytb2slk '${1}'"
+}
+```
+
+#### Remote Execute batch_ytb2rsnc
+```
+batch_ytb2rsnc() {
+  cat ${1} | awk '{printf "%s\n", $1}' | ssh ${USER}@${IP_ADDRESS} 'source ~/.profile && batch_ytb2rsnc'
+}
+```
+
+#### Remote Execute insta2slk
+```
+insta2slk() {
+      ssh ${USER}@${IP_ADDRESS} "source ~/.profile && insta2slk '${1}'"
+}
+```
