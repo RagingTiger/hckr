@@ -160,7 +160,6 @@ sharing sites (see [gallery-dl docs](https://github.com/mikf/gallery-dl#gallery-
 ```
 # insta to slk pipeline
 insta2slk() {
-  local message=${2:-"New upload on $(date)"}
   docker run -d \
              --rm \
              --name insta2slk.$(date  +%m%d%y%H%M%S) \
