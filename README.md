@@ -104,17 +104,19 @@ ytb2rsnc(){
              --rm \
              --name ytb2rsnc.$(date  +%m%d%y%H%M%S) \
              -v ~/.ssh:/root/.ssh \
-             tigerj/hckr bash -c " youtube-dl --restrict-filename \
+             tigerj/hckr bash -c "youtube-dl --restrict-filename \
                                               -f 'best' \
                                               -ciw \
                                               -o "${payload}"'.%(title)s.%(ext)s' \
                                               $1 && \
                                    rsync -havP ytbdl.* \
-                                          username@192.168.10.20:/videos/"
+                                          ${USER}@${IP_ADDRESS}:/videos/"
 
 }
 ```
 + **Usage**: `$ ytb2rsnc https://youtu.be/oHg5SJYRHA0`
++ **Notes**: Make sure to set the values for `USER` and `IP_ADDRESS` for the
+  `rsync` command accordingly.
 
 #### Multiple youtube-dl to rsync
 As the name implies, this `shell function` is for loading up multiple
@@ -140,11 +142,13 @@ batch_ytb2rsnc(){
                 -f 'best' \
                 -ciw \
                 -o "${payload}"'.%(title)s.%(ext)s' \
-                --exec 'rsync {} ${USER}@192.168.10.20:/videos'"
+                --exec 'rsync {} ${USER}@${IP_ADDRESS}:/videos'"
 }
 ```
 + **Usage**: `$ batch_ytb2rsnc < list_of_vid_urls.txt`
-+ **Notes**: The format of the list is simply newline terminated URLs like such:
++ **Notes**: Make sure to set the values for `USER` and `IP_ADDRESS` for the
+  `rsync` command accordingly. The format of the list is simply newline
+  terminated URLs like such:
 ```
 $ cat list_of_vid_urls.txt
 https://youtu.be/ub82Xb1C8os
