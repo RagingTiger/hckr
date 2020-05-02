@@ -124,23 +124,22 @@ location. **Important to notice the `-v ~/.ssh:/root.ssh`** which volume mounts
 your ssh keys into the container so that you can connect to your remote host:
 ```
 batch_ytb2rsnc(){
-  local args=$(while read line; do echo "$line"; done)
   local payload="ytbdl.$(date +%m%d%y%H%M%S)"
-  while read line; do echo "${line}"; done | \
+  local urls=$(while read line; do echo "$line"; done)
   docker run -d \
-             --rm \
-             --name ytb2rsnc.$(date  +%m%d%y%H%M%S) \
-             -v ~/.ssh:/root/.ssh \
-             tigerj/hckr bash -c "echo '${args}' | while read url; do
-                                    youtube-dl --restrict-filename \
-                                              -f 'best'
-                                              -ciw \
-                                              -o "${payload}"'.%(title)s.%(ext)s' \
-                                              \"\${url}\"
-                                  done && \
-                                  rsync -havP ytbdl.* \
-                                        username@192.168.10.20:/videos/"
-
+            --rm \
+            --name ytb2rsnc.$(date  +%m%d%y%H%M%S) \
+            -v ~/.ssh:/root/.ssh \
+            tigerj/hckr \
+              bash -c \
+              "echo '${urls}' | \
+              youtube-dl \
+                --batch-file - \
+                --restrict-filename \
+                -f 'best' \
+                -ciw \
+                -o "${payload}"'.%(title)s.%(ext)s' \
+                --exec 'rsync {} ${USER}@192.168.10.20:/videos'"
 }
 ```
 + **Usage**: `$ batch_ytb2rsnc < list_of_vid_urls.txt`
