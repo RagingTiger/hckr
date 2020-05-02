@@ -135,6 +135,8 @@ batch_ytb2rsnc(){
               youtube-dl \
                 --batch-file - \
                 --restrict-filename \
+                --max-sleep-interval 60 \
+                --min-sleep-interval 1 \
                 -f 'best' \
                 -ciw \
                 -o "${payload}"'.%(title)s.%(ext)s' \
