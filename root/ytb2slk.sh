@@ -36,7 +36,7 @@ youtube_2_slack(){
   # check if video is too big
   if [ $(ls -la "${payload}".* | awk '{print $5}') -gt 400000000 ]; then
     # alert
-    echo "File too big will be split in half"
+    printf "\n>>> File too big will be split in half <<<\n"
 
     # first get download filename
     local dwnld=$(ls "${payload}".*)
@@ -46,10 +46,19 @@ youtube_2_slack(){
 
     # finally start splitting video and pushing to slack
     while read -r -u 3 filename start end; do
-      echo "Copying: $filename from $start to $end"
+      # alert
+      printf "\n>>>\n + Copying: $filename from $start to $end\n<<<\n"
+
+      # start copying half of video
       ffmpeg -i "${dwnld}" -ss "${start}" -to "${end}" -c copy "${filename}" && \
+
+      # alert
+      printf "\n>>>\n + Now uploading to Slack: ${filename}\n<<<\n" && \
+
+      # push to slack
       slack file upload -fl "${filename}" -chs ${channel}  -cm "${message}"
     done 3< cuts.txt
+
   else
     # file size is good then just push to Slack
     slack file upload -fl "${payload}".* -chs ${channel}  -cm "${message}"
