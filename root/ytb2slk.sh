@@ -1,3 +1,22 @@
+get_num_parts(){
+  # get overall size
+  local file_size=$(ls -la "${1}" | awk '{print $5}')
+
+  # set initial counter
+  local parts=1
+
+  # find parts number
+  while true; do
+    # divide file size by parts number
+    if [ $(( file_size / parts )) -lt 500000000 ]; then
+      echo $parts
+      break
+    else
+      (( parts++ ))
+    fi
+  done
+}
+
 gen_cuts_txt(){
   # damn this is a lot of SHHHHH!!!TTTT
   #
