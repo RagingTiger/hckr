@@ -1,5 +1,5 @@
 # Production image
-FROM alpine:3.10
+FROM alpine:3.10.5
 
 # install goodies
 RUN apk add --no-cache \
@@ -12,7 +12,7 @@ RUN apk add --no-cache \
         jq \
         make \
         openssh \
-        python3=3.7.5-r1 \
+        python3=3.7.7-r1 \
         rsync && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
     \
