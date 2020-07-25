@@ -85,6 +85,9 @@ main(){
   if [ ! -z "$UPLD_NM" ]; then
     # set to custom uplod name with extension
     vid_title=".$UPLD_NM.%(ext)s"
+
+    # alert
+    echo "Using custom upload name: $UPLD_NM"
   fi
 
   # next get the video and exit if command fails
