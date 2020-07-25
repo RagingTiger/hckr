@@ -45,7 +45,7 @@ gen_cuts_txt(){
 
   # alert
   echo ">>> File too big. Splitting $end long video" \
-       "into $parts parts, ~${part_secs}s long each. <<<\n"
+       "into $parts parts, ~$(tstmp $part_secs)s long each. <<<\n"
 
   # setup index (i), in timestamp, out timestamp
   local i=0
@@ -79,9 +79,16 @@ main(){
   local payload="ytbdl.$(date +%m%d%y%H%M%S)"
   local channel=${2:-'#meeting'}
   local message=${3:-"New upload from youtube-dl on $(date)"}
+  local vid_title='.%(title)s.%(ext)s'
+
+  # check if custom uploand name is set
+  if [ ! -z "$UPLD_NM" ]; then
+    # set to custom uplod name with extension
+    vid_title=".$UPLD_NM.%(ext)s"
+  fi
 
   # next get the video and exit if command fails
-  youtube-dl --restrict-filename -f 'best' -ciw -o "${payload}"'.%(title)s.%(ext)s' $1 && \
+  youtube-dl --restrict-filename -f 'best' -ciw -o "${payload}""${vid_title}" $1 && \
 
   # check if video is > 500MB
   if [ $(ls -la "${payload}".* | awk '{print $5}') -gt $VID_SZ_LIMIT ]; then
