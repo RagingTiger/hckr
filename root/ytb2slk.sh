@@ -1,5 +1,5 @@
 # globals
-VID_SZ_LIMIT=500000000
+VID_SZ_LIMIT=400000000
 
 # funcs
 get_num_parts(){
