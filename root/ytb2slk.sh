@@ -45,7 +45,7 @@ gen_cuts_txt(){
 
   # alert
   echo ">>> File too big. Splitting $end long video" \
-       "into $parts parts, ~$(tstmp $part_secs)s long each. <<<\n"
+       "into $parts parts, ~$(tstmp $part_secs)s long each. <<<"
 
   # setup index (i), in timestamp, out timestamp
   local i=0
