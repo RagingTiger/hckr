@@ -35,7 +35,8 @@ COPY root/ /root/
 # link ytb2slk executable
 RUN chmod +x /root/*.sh && \
     ln /root/ytb2slk.sh /usr/bin/ytb2slk && \
-    ln /root/insta2slk.sh /usr/bin/insta2slk
+    ln /root/insta2slk.sh /usr/bin/insta2slk && \
+    ln /root/slkup.sh /usr/bin/slkup
 
 # create work dir
 WORKDIR /home/hckr
