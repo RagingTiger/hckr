@@ -1,13 +1,15 @@
 # local shell libs
 source /root/pyldsplt.sh
+source /root/domchk.sh
 
 # main program execution block
 main(){
+  set -x
   # first setup some variables
   local payload="ytbdl.$(date +%m%d%y%H%M%S)"
   local channel=${2:-'#meeting'}
-  local message=${3:-"New upload from youtube-dl on $(date)"}
-  local vid_title='.%(title)s.%(ext)s'
+  local message=${3:-"New upload on $(date)"}
+  local vid_title='%(title)s.%(ext)s'
 
   # check if custom uploand name is set
   if [ ! -z "$UPLD_NM" ]; then
@@ -18,14 +20,20 @@ main(){
     echo "Using custom upload name: $UPLD_NM"
   fi
 
+  # get domain-specific args (lib: domchk)
+  local dom_args="$(get_dom_args ${1} ${payload} ${vid_title})"
+
   # next get the video and exit if command fails
-  youtube-dl --restrict-filename -f 'best' -ciw -o "${payload}.${vid_title}" $1 && \
+  youtube-dl ${dom_args} ${1}
 
   # get file name
   local dwnld="$(ls "${payload}".*)" && \
 
-  # prepare for slack (lib: pyldsplt)
-  split_for_slack "${dwnld}"
+  # check if pushing to slack
+  if [ ! -z "$SLACKUP" ]; then
+    # prepare for slack (lib: pyldsplt)
+    split_for_slack "${dwnld}"
+  fi
 }
 
 # executable
