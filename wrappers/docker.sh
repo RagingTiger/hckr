@@ -1,8 +1,3 @@
-# cpu temp
-cpu_temp() {
-  echo "$(cat /sys/class/thermal/thermal_zone*/temp) mC"
-}
-
 # ytb to slk pipeline
 ytb2slk() {
   docker run -d \
