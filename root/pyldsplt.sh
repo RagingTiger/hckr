@@ -80,13 +80,15 @@ split_for_slack() {
     # find halfway point in video and store in cuts.txt (lib: pyldsplt)
     gen_cuts_txt "${1}"
 
-    # finally start splitting video and pushing to slack
-    while read -r -u 3 filename start end; do
-      # alert
-      printf "\n>>>\n + Copying: $filename from $start to $end\n<<<\n"
+    # setup local var for input file name
+    local in_file="${1}"
 
-      # start copying half of video
-      ffmpeg -i "${1}" -ss "${start}" -to "${end}" -c copy "${filename}" && \
+    # start splitting vid in parallel (using default ALL cores)
+    cat cuts.txt | parallel --eta --colsep ' ' \
+                            ffmpeg -i ${in_file} -ss {2} -to {3} -c copy {1}
+
+    # finally start pushing to slack
+    while read -r -u 3 filename start end; do
 
       # alert
       printf "\n>>>\n + Now uploading to Slack: ${filename}\n<<<\n" && \

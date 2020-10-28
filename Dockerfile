@@ -12,6 +12,7 @@ RUN apk add --no-cache \
         jq \
         make \
         openssh \
+        parallel \
         python3=3.7.7-r1 \
         rsync && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
@@ -27,7 +28,7 @@ RUN cd /tmp && \
     tar -xvzf slack.tar.gz && \
     cd slack-cli-${SLKVERS} && \
     make install bindir='/usr/local/bin' etcdir='/usr/etc' && \
-    rm -rf /tmp/*     
+    rm -rf /tmp/*
 
 # setup rc file
 COPY root/ /root/
