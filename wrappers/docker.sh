@@ -34,12 +34,6 @@ insta2slk() {
              tigerj/hckr bash -c "insta2slk $1 '$1'"
 }
 
-# setup buildx
-setup_buildx() {
-  docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64 && \
-  docker buildx create --use --name mybuilder
-}
-
 # new and improved
 scrp2slk() {
   docker run -d \
