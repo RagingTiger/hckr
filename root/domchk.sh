@@ -5,6 +5,6 @@ get_dom_args() {
     echo '--sub-lang enUS --write-sub --embed-subs'
   else
     # return normal args
-    echo "--restrict-filename -f best -ciw -o ${2}.${3}"
+    echo "--restrict-filename -f best -ciw -o ${2}"
   fi
 }
