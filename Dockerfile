@@ -13,7 +13,7 @@ RUN apk add --no-cache \
         make \
         openssh \
         parallel \
-        python3=3.7.7-r1 \
+        python3 \
         rsync && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
     \
