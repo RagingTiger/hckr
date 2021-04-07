@@ -28,7 +28,8 @@ main(){
   # check if pushing to slack
   if [ ! -z "$SLACKUP" ]; then
     # get file name
-    local dwnld="$(youtube-dl --get-filename --restrict-filename -o ${vid_title} ${1})" && \
+    local dwnld="$(youtube-dl --get-filename --restrict-filename -f best -ciw \
+                              -o ${vid_title} ${1})" && \
 
     # prepare for slack (lib: pyldsplt)
     split_for_slack "${dwnld}"
