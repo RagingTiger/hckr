@@ -6,7 +6,7 @@ ytb2slk() {
              -v ~/.hckr:/usr/etc \
              -e UPLD_NM="$2" \
              -e SLACKUP='true' \
-             tigerj/hckr bash -c "ytb2slk $1 '#meeting' '$1'"
+             ghcr.io/ragingtiger/hckr:master bash -c "ytb2slk $1 '#meeting' '$1'"
 }
 
 # slack upload
@@ -16,13 +16,13 @@ slackup() {
              --name slackup.$(date +%m%d%y%H%M%S) \
              -v ~/.hckr:/usr/etc \
              -v $PWD:/home/hckr \
-             tigerj/hckr  bash -c "slkup $1 '#meeting' $2"
+             ghcr.io/ragingtiger/hckr:master  bash -c "slkup $1 '#meeting' $2"
 }
 
 # hack it
 hckr() {
   local mountpnt=${1:-"$PWD"}
-  docker run --rm -v $mountpnt:/home/hckr -it tigerj/hckr
+  docker run --rm -v $mountpnt:/home/hckr -it ghcr.io/ragingtiger/hckr:master
 }
 
 # insta to slk pipeline
@@ -31,7 +31,7 @@ insta2slk() {
              --rm \
              --name insta2slk.$(date  +%m%d%y%H%M%S) \
              -v ~/.hckr:/usr/etc \
-             tigerj/hckr bash -c "insta2slk $1 '$1'"
+             ghcr.io/ragingtiger/hckr:master bash -c "insta2slk $1 '$1'"
 }
 
 # new and improved
@@ -42,5 +42,5 @@ scrp2slk() {
              -v ~/.hckr:/usr/etc \
              -e UPLD_NM="$2" \
              -e SLACKUP='true' \
-             tigerj/hckr bash -c "scrp2slk $1 '#meeting' '$1'"
+             ghcr.io/ragingtiger/hckr:master bash -c "scrp2slk $1 '#meeting' '$1'"
 }

@@ -63,8 +63,8 @@
     ```
 
 ## Shell Scripting Examples
-The following is a series of example `shell functsion` for using the
-`tigerj/hckr` image. These are meant to be placed in your `.${SHELL}rc` file or
+The following is a series of example `shell functions` for using the
+`ghcr.io/ragingtiger/hckr:master` image. These are meant to be placed in your `.${SHELL}rc` file or
 `.profile` but could easily be used in any `*.sh` file.
 
 ### Deploying Docker Containers
@@ -83,7 +83,7 @@ ytb2slk() {
               --rm \
               --name ytb2slk.$(date  +%m%d%y%H%M%S) \
               -v ~/.hckr:/usr/etc \
-              tigerj/hckr bash -c "ytb2slk $1 $2 $3
+              ghcr.io/ragingtiger/hckr:master bash -c "ytb2slk $1 $2 $3
 }
 ```
 + **Usage**: `$ ytb2slk https://youtu.be/oHg5SJYRHA0 'Special surprise :)' '#humor'`
@@ -104,7 +104,7 @@ ytb2rsnc(){
              --rm \
              --name ytb2rsnc.$(date  +%m%d%y%H%M%S) \
              -v ~/.ssh:/root/.ssh \
-             tigerj/hckr bash -c "youtube-dl --restrict-filename \
+             ghcr.io/ragingtiger/hckr:master bash -c "youtube-dl --restrict-filename \
                                               -f 'best' \
                                               -ciw \
                                               -o "${payload}"'.%(title)s.%(ext)s' \
@@ -131,7 +131,7 @@ batch_ytb2rsnc(){
             --rm \
             --name ytb2rsnc.$(date  +%m%d%y%H%M%S) \
             -v ~/.ssh:/root/.ssh \
-            tigerj/hckr \
+            ghcr.io/ragingtiger/hckr:master \
               bash -c \
               "echo '${urls}' | \
               youtube-dl \
@@ -168,7 +168,7 @@ insta2slk() {
              --rm \
              --name insta2slk.$(date  +%m%d%y%H%M%S) \
              -v ~/.hckr:/usr/etc \
-             tigerj/hckr bash -c "insta2slk $1 $2"
+             ghcr.io/ragingtiger/hckr:master bash -c "insta2slk $1 $2"
 }
 ```
 + **Usage**: `$ insta2slk https://www.instagram.com/p/B-kHf1UHIpq/`
@@ -186,7 +186,7 @@ slackup() {
              --name slackup.$(date +%m%d%y%H%M%S) \
              -v ~/.hckr:/usr/etc \
              -v $PWD:/home/hckr \
-             tigerj/hckr bash -c "slack file upload -fl $1 -chs '#general'"
+             ghcr.io/ragingtiger/hckr:master bash -c "slack file upload -fl $1 -chs '#general'"
 }
 ```
 + **Usage**: `$ slackup  yourfile.mkv `
@@ -198,7 +198,7 @@ and mount your current directory:
 # hack it
 hckr() {
   local mountpnt=${1:-"$PWD"}
-  docker run --rm -v $mountpnt:/home/hckr -it tigerj/hckr
+  docker run --rm -v $mountpnt:/home/hckr -it ghcr.io/ragingtiger/hckr:master
 }
 ```
 + **Usage**: `$ hckr`
