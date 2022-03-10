@@ -44,3 +44,14 @@ scrp2slk() {
              -e SLACKUP='true' \
              ghcr.io/ragingtiger/hckr:master bash -c "scrp2slk $1 '#meeting' '$1'"
 }
+
+monitdir() {
+  docker run -d \
+             --rm \
+             --name monitdir.$(date +%m%d%y%H%M%S) \
+             -v ~/.hckr:/usr/etc \
+             -v $PWD:/home/hckr \
+             -e NOTIFYMSG='New download available' \
+             -e NOTIFYCHNL='#meeting' \
+             ghcr.io/ragingtiger/hckr:master bash -c "monitdir"
+}
