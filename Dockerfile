@@ -10,6 +10,8 @@ RUN apk add --no-cache \
         ffmpeg \
         git \
         jq \
+        libwebp \
+        libwebp-tools \
         make \
         openssh \
         parallel \
