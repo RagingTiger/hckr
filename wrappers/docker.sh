@@ -55,3 +55,14 @@ monitdir() {
              -e NOTIFYCHNL='#meeting' \
              ghcr.io/ragingtiger/hckr:master bash -c "monitdir"
 }
+
+compress2mp4() {
+  docker run -d \
+             --rm \
+             --name vid_compress \
+             -v $PWD:/home/hckr \
+             ghcr.io/ragingtiger/hckr:master \
+               ffmpeg -i $1 -c:v libx264 -c:a copy -movflags faststart "compressed.${1%.*}.mp4"
+}
+
+}
