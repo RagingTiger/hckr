@@ -59,7 +59,7 @@ monitdir() {
 compress2mp4() {
   docker run -d \
              --rm \
-             --name vid_compress \
+             --name compress2mp4.$(date +%m%d%y%H%M%S) \
              -v $PWD:/home/hckr \
              ghcr.io/ragingtiger/hckr:master \
                ffmpeg -i $1 -c:v libx264 -c:a copy -movflags faststart "compressed.${1%.*}.mp4"
