@@ -65,4 +65,11 @@ compress2mp4() {
                ffmpeg -i $1 -c:v libx264 -c:a copy -movflags faststart "compressed.${1%.*}.mp4"
 }
 
+convert2mp4() {
+  docker run -d \
+             --rm \
+             --name convert2mp4.$(date +%m%d%y%H%M%S) \
+             -v $PWD:/home/hckr \
+             ghcr.io/ragingtiger/hckr:master \
+               ffmpeg -i $1 -map 0 -movflags faststart "${1%.*}.mp4"
 }
