@@ -21,7 +21,7 @@ RUN apk add --no-cache \
     \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache  --upgrade youtube-dl gallery-dl bs4
+    pip3 install --no-cache  --upgrade "git+https://github.com/ytdl-org/youtube-dl.git" gallery-dl bs4
 
 # install slack
 ARG SLKVERS=0.18.0
