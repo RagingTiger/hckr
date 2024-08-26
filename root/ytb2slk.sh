@@ -30,7 +30,7 @@ main(){
   local dom_args="$(get_dom_args ${1} ${vid_title})"
 
   # next get the video and exit if command fails
-  youtube-dl ${dom_args} ${1}
+  yt-dlp ${dom_args} ${1}
 
   # now cleanse filename of special chars
   mv "${cache_dir}/$(ls ${cache_dir})" "${cache_dir}/$(ls ${cache_dir} | sed 's/[^a-zA-Z0-9.\_-]//g')"

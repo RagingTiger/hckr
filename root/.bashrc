@@ -21,19 +21,19 @@ export PS1='\u@\h:\W \$ '
 
 ## convenience functions
 get_youtube_video(){
-  youtube-dl --restrict-filename -o '%(title)s.%(ext)s' $1
+  yt-dlp --restrict-filename -o '%(title)s.%(ext)s' $1
 }
 
 get_youtube_audio(){
-  youtube-dl -x --audio-format mp3 $1
+  yt-dlp -x --audio-format mp3 $1
 }
 
 get_youtube_playlist(){
-  youtube-dl --restrict-filenames -ciw -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
+  yt-dlp --restrict-filenames -ciw -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
 }
 
 get_youtube_channel(){
-  youtube-dl --restrict-filename -ciw -o '%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
+  yt-dlp --restrict-filename -ciw -o '%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
 }
 
 # download from youtube, upload to slack
@@ -41,7 +41,7 @@ youtube_2_slack(){
   local payload="ytbdl.$(date +%m%d%y%H%M%S)"
   local channel=${2:-'#general'}
   local message=${3:-"New upload from youtube-dl on $(date)"}
-  youtube-dl --restrict-filename -ciw -o "${payload}"'.%(title)s.%(ext)s' $1 && \
+  yt-dlp --restrict-filename -ciw -o "${payload}"'.%(title)s.%(ext)s' $1 && \
   slack file upload -fl "${payload}".* -chs ${channel}  -cm "${message}"
 }
 

@@ -1,29 +1,34 @@
 # Production image
-FROM alpine:3.10.5
+FROM ubuntu:20.04
 
-# install goodies
-RUN apk add --no-cache \
-        bash \
-        bash-doc \
-        bash-completion \
-        curl \
-        ffmpeg \
-        git \
-        jq \
-        libwebp \
-        libwebp-tools \
-        make \
-        openssh \
-        parallel \
-        python3 \
-        rsync && \
-    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
-    \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache  --upgrade "git+https://github.com/ytdl-org/youtube-dl.git" gallery-dl bs4
+# Set environment variables to non-interactive mode to avoid prompts
+ENV DEBIAN_FRONTEND=noninteractive
 
-# install slack
+# Install required packages
+RUN apt-get update && apt-get install -y \
+    curl \
+    ffmpeg \
+    gcc \
+    git \
+    jq \
+    libwebp-dev \
+    python3 \
+    python3-pip \
+    rsync \
+    make \
+    openssh-client \
+    parallel && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi
+
+# Install python packages
+RUN pip3 install --no-cache-dir --upgrade \
+    bs4 \
+    gallery-dl \
+    yt-dlp
+
+# Install slack CLI
 ARG SLKVERS=0.18.0
 RUN cd /tmp && \
     curl -fsSL -o slack.tar.gz https://github.com/rockymadden/slack-cli/archive/v${SLKVERS}.tar.gz && \
@@ -32,10 +37,10 @@ RUN cd /tmp && \
     make install bindir='/usr/local/bin' etcdir='/usr/etc' && \
     rm -rf /tmp/*
 
-# setup rc file
+# Setup rc file
 COPY root/ /root/
 
-# link ytb2slk executable
+# Link ytb2slk executable
 RUN chmod +x /root/*.sh && \
     ln /root/scrp2slk.sh /usr/bin/scrp2slk && \
     ln /root/ytb2slk.sh /usr/bin/ytb2slk && \
@@ -43,7 +48,7 @@ RUN chmod +x /root/*.sh && \
     ln /root/slkup.sh /usr/bin/slkup && \
     ln /root/monitdir.sh /usr/bin/monitdir
 
-# create work dir
+# Create work directory
 WORKDIR /home/hckr
 
 CMD ["/bin/bash"]
