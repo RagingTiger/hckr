@@ -11,13 +11,13 @@ RUN apt-get update && apt-get install -y \
     gcc \
     git \
     jq \
-    libwebp-dev \
     python3 \
     python3-pip \
     rsync \
     make \
     openssh-client \
-    parallel && \
+    parallel \
+    webp && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi
