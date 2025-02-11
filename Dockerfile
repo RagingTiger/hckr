@@ -1,5 +1,5 @@
 # Production image
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # Set environment variables to non-interactive mode to avoid prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y \
     gcc \
     git \
     jq \
-    python3.9 \
     python3-pip \
     rsync \
     make \
